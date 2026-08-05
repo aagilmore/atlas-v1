@@ -1,0 +1,58 @@
+{
+  "observation_id": "2026-W31",
+  "week": {
+    "start_date": "2026-08-01",
+    "end_date": "2026-08-07",
+    "check_in_date": "2026-08-08",
+    "type": "Home"
+  },
+
+  "strategic": {
+    "weight": 244.9,
+    "body_fat_percent": 23.8,
+    "lean_mass": 172.4,
+    "vo2_max": 47.2,
+    "goal_progress_percent": 72,
+    "health_score": null
+  },
+
+  "nutrition": {
+    "average_calories": 2208,
+    "average_protein": 190,
+    "adaptive_tdee": 2700,
+    "average_deficit": 492
+  },
+
+  "training": {
+    "strength_sessions": 3,
+    "interval_sessions": 2,
+    "zone2_sessions": 2,
+    "weekly_volume": 100
+  },
+
+  "recovery": {
+    "sleep_performance": 87,
+    "hrv": 82,
+    "resting_hr": 49
+  },
+
+  "lifestyle": {
+    "steps": 11342,
+    "alcoholic_drinks": 3,
+    "work_stress": 2
+  },
+
+  "context": {
+    "travel": false,
+    "summary": "Home week. Normal training. Good recovery."
+  },
+
+  "assessment": {
+    "overall_status": "On Track",
+    "confidence": "High",
+    "biggest_win": "Training consistency",
+    "biggest_opportunity": "Nutrition consistency",
+    "focus_next_week": "Reduce weekend calories",
+    "coach_summary": "Excellent consistency across training and recovery. Continue focusing on nutrition quality and maintaining weekly volume."
+  }
+}
