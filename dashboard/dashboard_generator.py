@@ -1,3 +1,5 @@
+from services.observation_repository import get_latest_observation
+
 from services.confidence_engine import calculate_confidence
 
 import json
@@ -5,7 +7,7 @@ from pathlib import Path
 
 
 def load_observation():
-    file_path = Path("observations/2026-W31.json")
+    file_path = get_latest_observation()
 
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)

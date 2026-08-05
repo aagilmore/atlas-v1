@@ -55,3 +55,10 @@ The approved Atlas Dashboard v1.0 became the product specification, and all futu
 
 If not, it does not belong in Atlas v1. 
 The purpose of Atlas is not to replace ChatGPT. The purpose of Atlas is to make every health conversation with ChatGPT more informed, more visual, and more consistent over time.
+
+0012 – Create Atlas Observation Repository
+
+• Added production observations repository.
+• Separated development sample data from production observations.
+• Updated dashboard loader to read production observations.
+• Verified identical dashboard output after migration.
