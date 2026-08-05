@@ -1,128 +1,104 @@
-# Weekly Observation
+# Atlas Weekly Observation
 
 ## Purpose
 
-The Weekly Observation is the fundamental building block of Atlas.
+A Weekly Observation is the permanent record created after each weekly review.
 
-Each Weekly Observation represents one completed reporting week and contains every piece of information required to generate the Atlas Weekly Snapshot Dashboard.
+It combines:
 
----
+- Data collected during the weekly check-in.
+- Metrics derived during the review.
+- Coaching insights generated from the analysis.
 
-# Reporting Period
-
-Reporting Week
-
-Start Date
-
-End Date
-
-Check-in Date
+This observation becomes the historical record used by Atlas to generate dashboards, trends, and long-term health insights.
 
 ---
 
-# Strategic Metrics
+# Observation Structure
 
-Body Weight
+## 1. Collected Metrics
 
-Body Fat %
+### Scale
 
-Lean Mass
+- Today's Weight
+- 7-Day Average Weight
 
-VO₂ Max
+### WHOOP Recovery
 
-Atlas Performance Score (Reserved)
+- Average Daily Calorie Burn
+- HRV (Daily Values)
+- Resting Heart Rate (Daily Values)
+- Sleep Performance (Daily Values)
 
-Goal Progress %
+### Activity
 
----
+- Average Daily Steps
+- Strength Sessions
+- Interval Runs
+- Zone 2 Rides
+- Zone 1–3 Time
+- Zone 4–5 Time
 
-# Nutrition
+### Nutrition
 
-Average Calories
+- Average Daily Calories
+- Average Daily Protein
+- Average Daily Carbohydrates
+- Average Daily Fat
 
-Average Protein
+### Alcohol
 
-Adaptive TDEE
+- Daily Alcohol Consumption (Saturday–Friday)
 
-Average Energy Deficit
+### Context
 
----
-
-# Training
-
-Strength Sessions Completed
-
-Interval Sessions Completed
-
-Zone 2 Sessions Completed
-
-Weekly Training Volume
-
-Training Goal
-
----
-
-# Recovery
-
-Sleep Performance
-
-Average HRV
-
-Average Resting Heart Rate
-
-Recovery Readiness
+- Work Stress
+- Sleep Quality
+- Recovery / Performance
+- Anything Unusual
 
 ---
 
-# Lifestyle
+## 2. Derived Metrics
 
-Average Daily Steps
+Calculated during the weekly review.
 
-Alcoholic Drinks
-
-Work Stress (1–5)
-
----
-
-# Week Context
-
-Week Type
-(Home / Travel / Vacation)
-
-Primary Goal
-
-Travel Days
-
-Special Events
-
-Overall Adherence
+- Adaptive TDEE
+- Average Daily Deficit
+- Weekly Strength Volume
+- Average Strength Volume per Session
+- Overall Status
+- Confidence
 
 ---
 
-# Weekly Assessment
+## 3. Coaching Summary
 
-Overall Status
+Generated during the weekly review.
 
-Confidence
-
-Biggest Win
-
-Biggest Opportunity
-
-Focus For Next Week
-
-Coach Summary
+- Biggest Win
+- Biggest Opportunity
+- Focus for Next Week
+- Coach Summary
 
 ---
 
-# Upcoming Events
+# Monthly Additions
 
-Next Check-in
+When applicable, the following monthly observations are attached to the weekly observation.
 
-Next DEXA
+- Waist Circumference
+- Blood Pressure
+- Garmin VO₂ Max
 
-Next Labs
+---
 
-Next Annual Physical
+# Related Observations
 
-Other Upcoming Events
+Atlas also supports independent observations for:
+
+- DEXA
+- Laboratory Results
+- Annual Physical
+
+These observations are stored separately and contribute to the long-term health history.

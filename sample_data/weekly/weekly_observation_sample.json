@@ -1,58 +1,68 @@
 {
-  "observation_id": "2026-W31",
-  "week": {
-    "start_date": "2026-08-01",
-    "end_date": "2026-08-07",
-    "check_in_date": "2026-08-08",
-    "type": "Home"
-  },
+  "week": "2026-W31",
+  "observation_date": "2026-08-01",
 
-  "strategic": {
-    "weight": 244.9,
-    "body_fat_percent": 23.8,
-    "lean_mass": 172.4,
-    "vo2_max": 47.2,
-    "goal_progress_percent": 72,
-    "health_score": null
-  },
-
-  "nutrition": {
-    "average_calories": 2208,
-    "average_protein": 190,
-    "adaptive_tdee": 2700,
-    "average_deficit": 492
-  },
-
-  "training": {
-    "strength_sessions": 3,
-    "interval_sessions": 2,
-    "zone2_sessions": 2,
-    "weekly_volume": 100
+  "scale": {
+    "today_weight": 244.9,
+    "average_weight": 245.5
   },
 
   "recovery": {
-    "sleep_performance": 87,
-    "hrv": 82,
-    "resting_hr": 49
+    "average_daily_calorie_burn": 2543,
+    "hrv": [62, 58, 106, 106, 90, 101, 117],
+    "resting_heart_rate": [53, 52, 53, 52, 53, 54, 53],
+    "sleep_performance": [85, 88, 79, 91, 83, 87, 90]
   },
 
-  "lifestyle": {
-    "steps": 11342,
-    "alcoholic_drinks": 3,
-    "work_stress": 2
+  "activity": {
+    "average_daily_steps": 11469,
+    "strength_sessions": 3,
+    "weekly_strength_volume": 12843,
+    "average_strength_volume_per_session": 4281,
+    "interval_runs": 2,
+    "zone2_rides": 2,
+    "zone1_3_minutes": 208,
+    "zone4_5_minutes": 20
+  },
+
+  "nutrition": {
+    "average_daily_calories": 2332,
+    "average_daily_protein": 190,
+    "average_daily_carbohydrates": 180,
+    "average_daily_fat": 70,
+    "adaptive_tdee": 2700,
+    "average_daily_deficit": 368
+  },
+
+  "alcohol": {
+    "saturday": 0,
+    "sunday": 1,
+    "monday": 0,
+    "tuesday": 1,
+    "wednesday": 0,
+    "thursday": 2,
+    "friday": 0
   },
 
   "context": {
-    "travel": false,
-    "summary": "Home week. Normal training. Good recovery."
+    "work_stress": "High",
+    "sleep_quality": "Good",
+    "recovery_performance": "Training remained strong despite work travel.",
+    "anything_unusual": "Higher work demands during the week."
   },
 
   "assessment": {
     "overall_status": "On Track",
     "confidence": "High",
-    "biggest_win": "Training consistency",
-    "biggest_opportunity": "Nutrition consistency",
-    "focus_next_week": "Reduce weekend calories",
-    "coach_summary": "Excellent consistency across training and recovery. Continue focusing on nutrition quality and maintaining weekly volume."
+    "biggest_win": "Maintained training consistency during a demanding work week.",
+    "biggest_opportunity": "Reduce alcohol intake during travel weeks.",
+    "focus_next_week": "Continue nutrition consistency and progressive overload.",
+    "coach_summary": "Fat loss remains on track while maintaining strength and cardiovascular fitness."
+  },
+
+  "monthly": {
+    "waist_inches": null,
+    "blood_pressure": null,
+    "garmin_vo2max": null
   }
 }
