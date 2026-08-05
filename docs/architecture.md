@@ -160,8 +160,7 @@ Wilson
     ↓
 Analyzes
 Calculates
-Explains
-Produces Atlas Observation
+produces atlas observation
 
 Atlas
     ↓
