@@ -46,3 +46,8 @@ No visual or structural changes may be made without an intentional version updat
 Current Version: **Atlas v1**
 
 Status: **In Development**
+
+## Repository Structure
+
+- `sample_data/` contains development and testing observations.
+- `observations/` contains immutable production Atlas Observations generated from real weekly check-ins.

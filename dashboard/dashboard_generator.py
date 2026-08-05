@@ -5,11 +5,10 @@ from pathlib import Path
 
 
 def load_observation():
-    file_path = Path("sample_data/weekly/weekly_observation_sample.json")
+    file_path = Path("observations/2026-W31.json")
 
     with open(file_path, "r", encoding="utf-8") as file:
         return json.load(file)
-
 
 def print_summary(data, confidence):
 
