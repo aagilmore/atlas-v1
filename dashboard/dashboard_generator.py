@@ -1,3 +1,5 @@
+from services.confidence_engine import calculate_confidence
+
 import json
 from pathlib import Path
 
@@ -9,7 +11,7 @@ def load_observation():
         return json.load(file)
 
 
-def print_summary(data):
+def print_summary(data, confidence):
 
     print("=" * 50)
     print("ATLAS WEEKLY OBSERVATION")
@@ -40,7 +42,7 @@ def print_summary(data):
 
     print("Assessment")
     print(f"  Status: {data['assessment']['overall_status']}")
-    print(f"  Confidence: {data['assessment']['confidence']}")
+    print(f"  Confidence: {confidence['confidence']}")
     print()
 
     print("=" * 50)
@@ -50,4 +52,5 @@ def print_summary(data):
 
 if __name__ == "__main__":
     observation = load_observation()
-    print_summary(observation)
+    confidence = calculate_confidence(observation)
+    print_summary(observation,confidence)
