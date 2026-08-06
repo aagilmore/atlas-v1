@@ -11,4 +11,21 @@ def run():
     choice = show_home()
 
     print()
-    print(f"You selected option {choice}.")
+
+    if choice == "1":
+        print("Opening Dashboard...")
+        print("(Not yet implemented.)")
+
+    elif choice == "2":
+        print("Importing Observation...")
+        print("(Not yet implemented.)")
+
+    elif choice == "3":
+        print("Exporting History...")
+        print("(Not yet implemented.)")
+
+    elif choice == "4":
+        print("Goodbye.")
+
+    else:
+        print("Invalid selection.")

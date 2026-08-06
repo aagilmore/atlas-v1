@@ -415,3 +415,20 @@ Future development will prioritize:
 - Observation import and export.
 - Longitudinal health memory.
 - Continued alignment with the Product Vision.
+
+## 0018 – Implement Interactive Home Menu
+
+### Purpose
+
+Introduce the first interactive user interface for Atlas by separating menu presentation from application control.
+
+### Key Decisions
+
+- Created a dedicated `menu.py` module.
+- Separated menu presentation from application logic.
+- Application controller now requests user input rather than displaying the menu directly.
+- Established the pattern of one responsibility per module.
+
+### Outcome
+
+Atlas became an interactive application capable of accepting user input through a modular home menu, establishing the foundation for future navigation.
