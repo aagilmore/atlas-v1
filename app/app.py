@@ -3,6 +3,7 @@ Atlas Application
 """
 
 from app.menu import show_home
+from dashboard.dashboard_generator import display_dashboard
 
 
 def run():
@@ -15,8 +16,7 @@ def run():
         print()
 
         if choice == "1":
-            print("Opening Dashboard...")
-            print("(Not yet implemented.)")
+            display_dashboard()
 
         elif choice == "2":
             print("Importing Observation...")

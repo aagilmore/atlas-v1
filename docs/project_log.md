@@ -453,3 +453,24 @@ Separate user interface presentation from application control while establishing
 ### Outcome
 
 Atlas responds to user selections and establishes the navigation pattern for future application features.
+
+## 0020 – Introduce Application Loop
+
+### Purpose
+
+Transform Atlas from a single-use script into a persistent interactive application.
+
+### Design Intent
+
+Allow users to complete multiple tasks during a single Atlas session while keeping application flow simple.
+
+### Key Decisions
+
+- Introduced a persistent application loop.
+- Home screen becomes the central navigation hub.
+- Users return to Home after each completed action.
+- Selecting Exit cleanly terminates the application.
+
+### Outcome
+
+Atlas now behaves like a traditional interactive application and provides a stable framework for integrating future workflows.
