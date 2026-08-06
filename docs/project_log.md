@@ -1,65 +1,141 @@
 # Atlas Project Log
 
-## August 4, 2026 – Atlas v1 Reset
+## Project Overview
 
-Today we intentionally restarted Atlas with a new repository.
+Atlas is a personal operating system for capturing observations, organizing knowledge, measuring confidence, and presenting actionable insight through a unified dashboard.
 
-### Background
+This repository represents a clean restart of the Atlas project. The purpose of the restart was to preserve the architecture while establishing a disciplined Git history from the beginning.
 
-The original repository was created for two purposes:
+---
 
-1. To learn AI-assisted software development using GitHub, Codespaces, and ChatGPT.
-2. To explore whether Atlas should be a standalone health application.
+# Development History
 
-That exploration was successful. We learned how to work together, developed an effective workflow, and identified the product we actually wanted to build.
+## Initial Commit
 
-### Key Realizations
+Created the repository.
 
-During development, it became clear that the weekly health check-in would continue to be entered manually. There was no desire to build integrations with Garmin, WHOOP, Apple Health, or other external systems.
+---
 
-It also became apparent that ChatGPT already provided the strongest part of the experience:
+## Commit 0001 — Establish Atlas v1
 
-- Health analysis
-- Coaching
-- Trend interpretation
-- Question answering
+Established the Atlas project and created the initial application structure.
 
-As a result, Atlas no longer needed to replicate those capabilities.
+---
 
-### Product Pivot
+## Commit 0002 — Freeze Atlas Dashboard Specification
 
-Atlas was redefined as a companion to ChatGPT rather than a replacement.
+Completed and froze the Version 1 dashboard specification. This document serves as the baseline for all future dashboard development.
 
-Atlas is responsible for:
+---
 
-- Maintaining a structured health journal
-- Generating the Weekly Snapshot Dashboard
-- Calculating historical trends
-- Producing the Atlas Health Score
+## Commit 0003 — Add Atlas Dashboard v1.0 Master
 
-ChatGPT remains responsible for:
+Added the master dashboard definition consolidating the initial dashboard design.
 
-- Weekly conversations
-- Coaching
-- Longitudinal analysis
-- Recommendations
-- Natural language interaction
+---
 
-### Outcome
+## Commit 0004 — Define Weekly Observation
 
-This decision dramatically simplified the project.
+Introduced the Weekly Observation model, establishing the primary unit of information managed by Atlas.
 
-The approved Atlas Dashboard v1.0 became the product specification, and all future development will be measured by one question:
+---
 
-**Does this improve the dashboard or the journal?**
+## Commit 0005 — Add Sample Weekly Observation
 
-If not, it does not belong in Atlas v1. 
-The purpose of Atlas is not to replace ChatGPT. The purpose of Atlas is to make every health conversation with ChatGPT more informed, more visual, and more consistent over time.
+Added representative observation data to support development, testing, and validation.
 
-0012 – Create Atlas Observation Repository
+---
 
-• Added production observations repository.
-• Separated development sample data from production observations.
-• Updated dashboard loader to read production observations.
-• Verified identical dashboard output after migration.
+## Commit 0006 — Freeze Atlas Data Dictionary
 
+Finalized the Atlas data dictionary, defining the vocabulary and field definitions used throughout the application.
+
+---
+
+## Commit 0007 — Align Weekly Observation Model
+
+Updated the observation model to fully align with the finalized data dictionary.
+
+---
+
+## Commit 0008 — Create Atlas Observation Loader
+
+Implemented the component responsible for loading Weekly Observation data into Atlas.
+
+---
+
+## Commit 0009 — Implement Atlas Confidence Engine
+
+Implemented the initial confidence scoring engine used to evaluate observations and generate confidence metrics.
+
+---
+
+## Commit 0010 — Freeze Atlas Architecture
+
+Completed the first stable architectural baseline for Atlas.
+
+This milestone finalized the major architectural decisions that guide future development.
+
+---
+
+## Commit 0011 — Freeze Atlas Observation Contract
+
+Defined and froze the interface between observations and the rest of the application.
+
+This contract establishes the expected structure for all observation data moving forward.
+
+---
+
+## Commit 0012 — Create Atlas Observation Repository
+
+Implemented the repository responsible for storing and retrieving observations.
+
+---
+
+## Commit 0013 — Add Atlas Observation Repository Manager
+
+Added the repository manager responsible for coordinating repository operations.
+
+---
+
+## Commit 0015 — Define Atlas UI Blueprint
+
+Created the blueprint describing the structure and layout of the Atlas user interface.
+
+---
+
+## Commit 0017 — Create Atlas Application Entry Point
+
+Created the Atlas application entry point responsible for initializing and launching the application.
+
+---
+
+# Current Status
+
+The architectural foundation for Atlas has been established.
+
+Current capabilities include:
+
+- Dashboard specification
+- Weekly Observation model
+- Sample observation data
+- Data dictionary
+- Observation loader
+- Confidence engine
+- Observation contract
+- Observation repository
+- Repository manager
+- User interface blueprint
+- Application entry point
+
+The next phase of development will focus on integrating these components into a functional application.
+
+---
+
+# Design Philosophy
+
+Atlas is developed incrementally using small, well-defined commits.
+
+Each milestone should represent a complete architectural or functional improvement while maintaining a working codebase.
+
+Architecture is established before features, allowing the application to grow without sacrificing maintainability.
