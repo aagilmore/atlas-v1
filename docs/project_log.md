@@ -1,141 +1,417 @@
-# Atlas Project Log
+> "Architecture tells us how Atlas works.
+>
+> This journal tells us why."
 
-## Project Overview
+# Atlas Engineering Journal
 
-Atlas is a personal operating system for capturing observations, organizing knowledge, measuring confidence, and presenting actionable insight through a unified dashboard.
+## Purpose
 
-This repository represents a clean restart of the Atlas project. The purpose of the restart was to preserve the architecture while establishing a disciplined Git history from the beginning.
+This journal records the significant product, architectural, and implementation decisions made during the development of Atlas.
 
----
+It exists to preserve engineering context rather than simply commit history.
 
-# Development History
+Each entry captures:
 
-## Initial Commit
+- Purpose
+- Key Decisions
+- Outcome
 
-Created the repository.
+The repository contains the code.
 
----
-
-## Commit 0001 — Establish Atlas v1
-
-Established the Atlas project and created the initial application structure.
-
----
-
-## Commit 0002 — Freeze Atlas Dashboard Specification
-
-Completed and froze the Version 1 dashboard specification. This document serves as the baseline for all future dashboard development.
+This journal explains why the code looks the way it does.
 
 ---
 
-## Commit 0003 — Add Atlas Dashboard v1.0 Master
+# Milestone 1 – Foundation
 
-Added the master dashboard definition consolidating the initial dashboard design.
+## Objective
 
----
+Establish Atlas as a Personal Health Memory System with a stable architecture, observation model, and user workflow before expanding functionality.
 
-## Commit 0004 — Define Weekly Observation
+## Milestone Outcomes
 
-Introduced the Weekly Observation model, establishing the primary unit of information managed by Atlas.
+- Atlas product vision established.
+- Dashboard specification frozen before implementation.
+- Weekly observation model defined.
+- Observation contract established.
+- Confidence model introduced.
+- Atlas architecture frozen.
+- Observation repository created.
+- User workflow designed.
+- UI blueprint completed.
+- Atlas application entry point established.
 
----
-
-## Commit 0005 — Add Sample Weekly Observation
-
-Added representative observation data to support development, testing, and validation.
-
----
-
-## Commit 0006 — Freeze Atlas Data Dictionary
-
-Finalized the Atlas data dictionary, defining the vocabulary and field definitions used throughout the application.
-
----
-
-## Commit 0007 — Align Weekly Observation Model
-
-Updated the observation model to fully align with the finalized data dictionary.
+Milestone 1 concludes with Atlas transitioning from a collection of scripts into a structured software product with a stable architectural foundation.
 
 ---
 
-## Commit 0008 — Create Atlas Observation Loader
+## 0001 – Establish Atlas v1
 
-Implemented the component responsible for loading Weekly Observation data into Atlas.
+### Purpose
 
----
+Create the Atlas repository and establish the project foundation.
 
-## Commit 0009 — Implement Atlas Confidence Engine
+### Key Decisions
 
-Implemented the initial confidence scoring engine used to evaluate observations and generate confidence metrics.
+- Atlas would be developed as an independent application.
+- Git history would document engineering decisions.
+- Documentation would evolve alongside implementation.
 
----
+### Outcome
 
-## Commit 0010 — Freeze Atlas Architecture
-
-Completed the first stable architectural baseline for Atlas.
-
-This milestone finalized the major architectural decisions that guide future development.
+Created the foundation for all future development.
 
 ---
 
-## Commit 0011 — Freeze Atlas Observation Contract
+## 0002 – Freeze Atlas Dashboard Specification
 
-Defined and froze the interface between observations and the rest of the application.
+### Purpose
 
-This contract establishes the expected structure for all observation data moving forward.
+Define the Version 1 dashboard before implementation.
 
----
+### Key Decisions
 
-## Commit 0012 — Create Atlas Observation Repository
+- Dashboard structure documented before coding.
+- Dashboard layout separated from implementation.
+- Dashboard became a frozen product artifact.
 
-Implemented the repository responsible for storing and retrieving observations.
+### Outcome
 
----
-
-## Commit 0013 — Add Atlas Observation Repository Manager
-
-Added the repository manager responsible for coordinating repository operations.
+Established the implementation target for the Atlas dashboard.
 
 ---
 
-## Commit 0015 — Define Atlas UI Blueprint
+## 0003 – Add Atlas Dashboard v1 Master
 
-Created the blueprint describing the structure and layout of the Atlas user interface.
+### Purpose
 
----
+Add the approved dashboard design to the repository.
 
-## Commit 0017 — Create Atlas Application Entry Point
+### Key Decisions
 
-Created the Atlas application entry point responsible for initializing and launching the application.
+- Preserve the approved dashboard as the implementation reference.
+- Separate visual design from application code.
 
----
+### Outcome
 
-# Current Status
-
-The architectural foundation for Atlas has been established.
-
-Current capabilities include:
-
-- Dashboard specification
-- Weekly Observation model
-- Sample observation data
-- Data dictionary
-- Observation loader
-- Confidence engine
-- Observation contract
-- Observation repository
-- Repository manager
-- User interface blueprint
-- Application entry point
-
-The next phase of development will focus on integrating these components into a functional application.
+Created the canonical dashboard reference for Version 1.
 
 ---
 
-# Design Philosophy
+## 0004 – Define Weekly Observation
 
-Atlas is developed incrementally using small, well-defined commits.
+### Purpose
 
-Each milestone should represent a complete architectural or functional improvement while maintaining a working codebase.
+Define the structure of the weekly health observation.
 
-Architecture is established before features, allowing the application to grow without sacrificing maintainability.
+### Key Decisions
+
+- Weekly observations become the primary unit of historical record.
+- Observations summarize the outcome of weekly coaching.
+
+### Outcome
+
+Established the initial observation model.
+
+---
+
+## 0005 – Add Sample Weekly Observation
+
+### Purpose
+
+Create representative data for dashboard development.
+
+### Key Decisions
+
+- Development uses sample observations.
+- Sample data remains separate from production observations.
+
+### Outcome
+
+Enabled dashboard development without production data.
+
+---
+
+## 0006 – Freeze Atlas Data Dictionary
+
+### Purpose
+
+Define the meaning of every field used by Atlas.
+
+### Key Decisions
+
+- Dashboard fields documented.
+- Observation fields standardized.
+- Shared vocabulary established across the project.
+
+### Outcome
+
+Created a common language for Atlas.
+
+---
+
+## 0007 – Align Weekly Observation Model
+
+### Purpose
+
+Refine the observation model to align with the evolving dashboard and architecture.
+
+### Key Decisions
+
+- Observation structure updated for consistency.
+- Dashboard and observation model aligned.
+
+### Outcome
+
+Produced a consistent observation model for Version 1.
+
+---
+
+## 0008 – Create Atlas Observation Loader
+
+### Purpose
+
+Separate observation loading from dashboard generation.
+
+### Key Decisions
+
+- Dashboard consumes observations through a loader.
+- Dashboard no longer depends on specific files.
+
+### Outcome
+
+Improved separation of responsibilities.
+
+---
+
+## 0009 – Implement Atlas Confidence Engine
+
+### Purpose
+
+Introduce confidence as a first-class concept within Atlas observations.
+
+### Key Decisions
+
+- Missing data reduces confidence rather than eliminating coaching.
+- Confidence measures observation quality.
+- Coaching continues even when confidence is reduced.
+
+### Outcome
+
+Atlas distinguishes between incomplete information and coaching value.
+
+---
+
+## 0010 – Freeze Atlas Architecture
+
+### Purpose
+
+Define the long-term architectural responsibilities of Atlas and ChatGPT.
+
+### Key Decisions
+
+- ChatGPT performs coaching and reasoning.
+- Atlas preserves observations and presents dashboards.
+- Atlas never performs coaching.
+- Atlas serves as the system of record.
+
+### Outcome
+
+Responsibilities were clearly separated and frozen.
+
+---
+
+## 0011 – Freeze Atlas Observation Contract
+
+### Purpose
+
+Define the permanent interface between ChatGPT and Atlas.
+
+### Key Decisions
+
+- Atlas stores finalized observations.
+- Historical observations are immutable.
+- Observation structure is preserved exactly as produced.
+
+### Outcome
+
+Established the permanent contract between coaching and storage.
+
+---
+
+## 0012 – Create Atlas Observation Repository
+
+### Purpose
+
+Create a permanent repository for Atlas observations.
+
+### Key Decisions
+
+- Production observations stored separately from sample data.
+- Repository becomes the source of historical observations.
+
+### Outcome
+
+Established the foundation for long-term health memory.
+
+---
+
+## 0013 – Add Observation Repository Manager
+
+### Purpose
+
+Centralize observation access.
+
+### Key Decisions
+
+- Dashboard requests observations through the repository manager.
+- Dashboard no longer references filenames directly.
+
+### Outcome
+
+Observation management became independent from dashboard implementation.
+
+---
+
+## 0014 – Design Atlas User Workflow
+
+### Purpose
+
+Define how users interact with ChatGPT and Atlas.
+
+### Key Decisions
+
+- Weekly coaching begins in ChatGPT.
+- Coaching remains conversational.
+- Atlas Observation is created only after coaching concludes.
+- Atlas imports finalized observations.
+- Atlas exports history for longitudinal analysis.
+- Atlas never interrupts coaching.
+
+### Outcome
+
+Established the complete user workflow.
+
+---
+
+## 0015 – Define Atlas UI Blueprint
+
+### Purpose
+
+Define the Version 1 screen structure.
+
+### Key Decisions
+
+Home screen contains:
+
+- View Dashboard
+- Import Observation from ChatGPT
+- Export History for ChatGPT
+
+Additional decisions:
+
+- Home becomes the navigation hub.
+- Dashboard specification remains independently maintained.
+- Observation History removed from Version 1 to maintain simplicity.
+
+### Outcome
+
+Established the Version 1 navigation model.
+
+---
+
+## 0016 – Define Atlas Product Vision
+
+### Purpose
+
+Define the long-term identity and principles of Atlas.
+
+### Key Decisions
+
+- Atlas is a Personal Health Memory System.
+- Atlas preserves coaching outcomes rather than conversations.
+- Atlas complements ChatGPT rather than replacing it.
+- Responsibilities remain stable while implementation may evolve.
+- Version 1 uses manual import/export while allowing future automated synchronization.
+
+### Outcome
+
+Established the long-term vision that will guide future development.
+
+---
+
+## 0017 – Create Atlas Application Entry Point
+
+### Purpose
+
+Transition Atlas from individual scripts into an application.
+
+### Key Decisions
+
+- Introduced the `app` package.
+- `atlas.py` became the application launcher.
+- Application startup separated from application logic.
+
+### Outcome
+
+Created the architectural foundation for Atlas as an application.
+
+---
+
+# Major Engineering Discoveries
+
+The following discoveries significantly influenced the design of Atlas.
+
+## Atlas is a Personal Health Memory System
+
+Atlas preserves the long-term story of a person's health rather than attempting to replace health coaching.
+
+---
+
+## ChatGPT Coaches. Atlas Preserves.
+
+Responsibilities are intentionally separated.
+
+ChatGPT provides conversation, reasoning, education, and coaching.
+
+Atlas preserves the outcomes of those conversations.
+
+---
+
+## Preserve Outcomes, Not Conversations
+
+Atlas stores finalized observations rather than complete coaching transcripts.
+
+This preserves the important information while keeping the historical record concise and portable.
+
+---
+
+## Freeze Responsibilities, Not Implementation
+
+Architectural responsibilities remain stable even as implementation evolves.
+
+Manual import/export may eventually become seamless synchronization without changing the underlying architecture.
+
+---
+
+## The Repository Is the Source of Truth
+
+Engineering decisions are based on the current state of the repository rather than memory.
+
+Repository inventory is performed before significant development sessions.
+
+---
+
+# Looking Ahead
+
+Milestone 1 established the architectural and product foundation for Atlas.
+
+Milestone 2 shifts the focus from defining Atlas to building Atlas.
+
+Future development will prioritize:
+
+- Interactive application workflows.
+- Dashboard experience.
+- Observation import and export.
+- Longitudinal health memory.
+- Continued alignment with the Product Vision.

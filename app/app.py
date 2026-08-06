@@ -1,18 +1,14 @@
 """
-Atlas
-
-Personal Health Memory System
+Atlas Application
 """
+
+from app.menu import show_home
 
 
 def run():
-    print("=" * 40)
-    print("ATLAS")
-    print("Personal Health Memory System")
-    print("=" * 40)
+    """Run the Atlas application."""
+
+    choice = show_home()
+
     print()
-    print("1. View Dashboard")
-    print("2. Import Observation from ChatGPT")
-    print("3. Export History for ChatGPT")
-    print("4. Exit")
-    print()
+    print(f"You selected option {choice}.")
