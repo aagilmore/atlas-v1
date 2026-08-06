@@ -8,24 +8,30 @@ from app.menu import show_home
 def run():
     """Run the Atlas application."""
 
-    choice = show_home()
+    while True:
 
-    print()
+        choice = show_home()
 
-    if choice == "1":
-        print("Opening Dashboard...")
-        print("(Not yet implemented.)")
+        print()
 
-    elif choice == "2":
-        print("Importing Observation...")
-        print("(Not yet implemented.)")
+        if choice == "1":
+            print("Opening Dashboard...")
+            print("(Not yet implemented.)")
 
-    elif choice == "3":
-        print("Exporting History...")
-        print("(Not yet implemented.)")
+        elif choice == "2":
+            print("Importing Observation...")
+            print("(Not yet implemented.)")
 
-    elif choice == "4":
-        print("Goodbye.")
+        elif choice == "3":
+            print("Exporting History...")
+            print("(Not yet implemented.)")
 
-    else:
-        print("Invalid selection.")
+        elif choice == "4":
+            print("Goodbye.")
+            break
+
+        else:
+            print("Invalid selection.")
+
+        input("\nPress Enter to return to the Home menu...")
+        print()

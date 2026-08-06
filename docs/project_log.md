@@ -432,3 +432,24 @@ Introduce the first interactive user interface for Atlas by separating menu pres
 ### Outcome
 
 Atlas became an interactive application capable of accepting user input through a modular home menu, establishing the foundation for future navigation.
+
+## 0019 – Connect Home Menu Navigation
+
+### Purpose
+
+Connect the Atlas Home menu to the application controller.
+
+### Design Intent
+
+Separate user interface presentation from application control while establishing the routing pattern for future workflows.
+
+### Key Decisions
+
+- Application controller now interprets menu selections.
+- Each menu option routes to its corresponding workflow.
+- Placeholder messages introduced for Dashboard, Import, and Export.
+- Invalid selections are handled gracefully.
+
+### Outcome
+
+Atlas responds to user selections and establishes the navigation pattern for future application features.
