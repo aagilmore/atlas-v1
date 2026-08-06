@@ -4,6 +4,7 @@ Atlas Application
 
 from app.menu import show_home
 from dashboard.dashboard_generator import display_dashboard
+from services.observation_importer import import_observation
 
 
 def run():
@@ -19,8 +20,7 @@ def run():
             display_dashboard()
 
         elif choice == "2":
-            print("Importing Observation...")
-            print("(Not yet implemented.)")
+            import_observation()
 
         elif choice == "3":
             print("Exporting History...")
