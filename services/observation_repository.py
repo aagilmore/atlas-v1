@@ -1,6 +1,6 @@
 from pathlib import Path
 
-OBSERVATIONS_DIR = Path("observations")
+OBSERVATIONS_DIR = Path("sample_data/weekly")
 
 
 def get_latest_observation():
@@ -16,4 +16,10 @@ def get_latest_observation():
     if not files:
         raise FileNotFoundError("No observations found.")
 
+    for file in files:
+        if file.name == "atlas_observation_v1.json":
+         print(f"Loading observation: {file}")
+        return file
+
+    print(f"Loading observation: {files[-1]}")
     return files[-1]

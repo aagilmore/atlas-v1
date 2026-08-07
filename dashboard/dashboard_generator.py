@@ -11,53 +11,61 @@ def load_observation():
         return json.load(file)
 
 
-def print_summary(data, confidence):
+def render_strategic_scorecard(data):
+    strategic = data["strategic_scorecard"]
 
-    print("=" * 50)
-    print("ATLAS WEEKLY OBSERVATION")
-    print("=" * 50)
-
-    print(f"Week: {data['week']}")
+    print("=" * 70)
+    print("ATLAS WEEKLY SNAPSHOT")
+    print("=" * 70)
     print()
 
-    print("Scale")
-    print(f"    Today's Weight: {data['scale']['today_weight']} lbs")
-    print(f"    Average Weight: {data['scale']['average_weight']} lbs")
+    print("STRATEGIC SCORECARD")
+    print("-" * 70)
+
+    performance = strategic["performance_score"]
+
+    print(f"Performance Score : {performance['score']} / 100")
+    print(f"Rating            : {performance['rating']}")
+    print(f"Confidence        : {performance['confidence']}")
     print()
 
-    print("Recovery")
-    print(f"    Avg Calorie Burn: {data['recovery']['average_daily_calorie_burn']}")
+    goal = strategic["goal_progress"]
+    print("Goal Progress")
+    print(f"  Progress        : {goal['percent_complete']}%")
+    print(f"  Status          : {goal['status']}")
+    print(f"  Goal            : {goal['primary_goal']}")
+    print(f"  Est. Completion : {goal['estimated_goal_date']}")
+    print(f"  Projected 20%BF : {goal['projected_20_percent_bf']}")
     print()
 
-    print("Activity")
-    print(f"    Strength Sessions: {data['activity']['strength_sessions']}")
-    print(f"    Weekly Strength Volume: {data['activity']['weekly_strength_volume']}")
-    print(
-        f"    Avg Volume/Session: {data['activity']['average_strength_volume_per_session']}"
-    )
+    bodyfat = strategic["body_fat"]
+    print("Body Fat")
+    print(f"  Current         : {bodyfat['value']}%")
+    print(f"  Goal            : {bodyfat['goal']}%")
+    print(f"  Monthly Change  : {bodyfat['monthly_change']}%")
     print()
 
-    print("Nutrition")
-    print(f"    Calories: {data['nutrition']['average_daily_calories']}")
-    print(f"    Protein: {data['nutrition']['average_daily_protein']} g")
+    vo2 = strategic["vo2_max"]
+    print("VO₂ Max")
+    print(f"  Current         : {vo2['value']}")
+    print(f"  Goal            : {vo2['goal']}")
+    print(f"  Monthly Change  : {vo2['monthly_change']}")
     print()
 
-    print("Assessment")
-    print(f"    Status: {data['assessment']['overall_status']}")
-    print(f"    Confidence: {confidence['confidence']}")
+    lean = strategic["lean_mass"]
+    print("Lean Mass")
+    print(f"  Current         : {lean['value']} {lean['unit']}")
+    print(f"  Goal            : {lean['goal']}")
+    print(f"  Monthly Change  : +{lean['monthly_change']} {lean['unit']}")
     print()
-
-    print("=" * 50)
-    print("Observation Loaded Successfully")
-    print("=" * 50)
 
 
 def display_dashboard():
     """Display the latest Atlas dashboard."""
 
     observation = load_observation()
+    render_strategic_scorecard(observation)
     confidence = calculate_confidence(observation)
-    print_summary(observation, confidence)
 
 
 if __name__ == "__main__":
