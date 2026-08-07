@@ -116,13 +116,72 @@ def render_weekly_execution_scorecard(data):
     print(f"    Work Stress     : {lifestyle['work_stress']['value']} / {lifestyle['work_stress']['scale']}")
     print(f"    Confidence      : {lifestyle['confidence']}")
     print()
-    
+
+def render_weekly_brief(data):
+    brief = data["atlas_weekly_brief"]
+
+    print("ATLAS WEEKLY BRIEF")
+    print("-" * 70)
+    print()
+
+    print("Overall Status")
+    print(f"    Status      : {brief['overall_status']}")
+    print(f"    Confidence  : {brief['confidence']}")
+    print()
+
+    context = data["week_context"]
+    print("Week Context")
+    print(f"    Week Type   : {context['week_type']}")
+    print(f"    Goal        : {context['goal']}")
+    print(f"    Travel      : {context['travel']}")
+    print(f"    Work Stress : {context['work_stress']}")
+    print(f"    Alcohol     : {context['alcohol']}")
+    print(f"    Events      : {context['special_events']}")
+    print(f"    Sleep       : {context['sleep_location']}")
+    print(f"    Injury      : {context['illness_injury']}")
+    print(f"    Confidence  : {context['confidence']}")
+    print()
+
+    coach = data["coach_analysis_focus"]
+    print("Coach Analysis")
+    print(f"    Analysis    : {coach['analysis']}")
+    print(f"    Next Week   : {coach['focus_for_next_week']}")
+    print(f"    Confidence  : {coach['confidence']}")
+    print()
+
+    overall = data["overall_confidence"]
+    print("Overall Confidence")
+    print(f"    Level       : {overall['level']}")
+    print(f"    Summary     : {overall['summary']}")
+    print(f"    Confidence  : {overall['confidence']}")
+    print()
+
+def render_pillar_status(data):
+    pillars = data["pillar_status"]
+
+    print("PILLAR STATUS")
+    print("-" * 70)
+    print()
+
+    for name, pillar in pillars.items():
+        print(name.title())
+        print(f"    Status      : {pillar['status']}")
+
+        print("    Summary")
+        for item in pillar["summary"]:
+            print(f"      • {item}")
+
+        print(f"    Confidence  : {pillar['confidence']}")
+        print()
+
 def display_dashboard():
     """Display the latest Atlas dashboard."""
 
     observation = load_observation()
     render_strategic_scorecard(observation)
     render_weekly_execution_scorecard(observation)
+    render_weekly_brief(observation)
+    render_pillar_status(observation)
     confidence = calculate_confidence(observation)
 
 
