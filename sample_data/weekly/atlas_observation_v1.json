@@ -1,0 +1,274 @@
+{
+  "week": {
+    "reporting_week": "2026-W31",
+    "date_range": "Aug 1 - Aug 7, 2026",
+    "check_in_completed": "2026-08-08T08:14:00"
+  },
+  "strategic_scorecard": {
+    "performance_score": {
+      "score": 87,
+      "rating": "Great",
+      "monthly_change": 2,
+      "confidence": "HIGH",
+      "breakdown": {
+        "body_composition": {
+          "weight": 30,
+          "score": 78
+        },
+        "training": {
+          "weight": 20,
+          "score": 92
+        },
+        "recovery": {
+          "weight": 20,
+          "score": 84
+        },
+        "nutrition": {
+          "weight": 15,
+          "score": 90
+        },
+        "lifestyle": {
+          "weight": 10,
+          "score": 74
+        },
+        "health": {
+          "weight": 5,
+          "score": 82
+        }
+      }
+    },
+    "goal_progress": {
+      "percent_complete": 48,
+      "status": "On Pace",
+      "primary_goal": "15% Body Fat",
+      "estimated_goal_date": "2027-04-12",
+      "projected_20_percent_bf": "2026-09-18",
+      "confidence": "HIGH"
+    },
+    "body_fat": {
+      "value": 23.9,
+      "unit": "%",
+      "goal": 15.0,
+      "monthly_change": -0.3,
+      "confidence": "MEDIUM"
+    },
+    "vo2_max": {
+      "value": 47.8,
+      "goal": 50,
+      "monthly_change": 1.2,
+      "confidence": "HIGH"
+    },
+    "lean_mass": {
+      "value": 172.6,
+      "unit": "lb",
+      "goal": "Maintain / Build",
+      "monthly_change": 0.6,
+      "confidence": "HIGH"
+    }
+  },
+  "weekly_execution_scorecard": {
+    "body": {
+      "weight": {
+        "value": 243.7,
+        "unit": "lb",
+        "weekly_change": -0.8
+      },
+      "confidence": "MEDIUM"
+    },
+    "nutrition": {
+      "calories": {
+        "actual": 2185,
+        "target": 2200
+      },
+      "protein": {
+        "actual": 191,
+        "target": 190,
+        "unit": "g"
+      },
+      "fat": {
+        "actual": 65,
+        "unit": "g"
+      },
+      "carbohydrates": {
+        "actual": 170,
+        "unit": "g"
+      },
+      "deficit": {
+        "value": -520,
+        "unit": "kcal"
+      },
+      "adaptive_tdee": {
+        "value": 2705,
+        "weekly_change": 35
+      },
+      "confidence": "HIGH"
+    },
+    "training": {
+      "weekly_strength_volume": 12843,
+      "average_volume_per_session": 4281,
+      "vo2_intervals": {
+        "completed": 2,
+        "goal": 2,
+        "minutes": 36
+      },
+      "strength_sessions": {
+        "completed": 3,
+        "goal": 3
+      },
+      "zone2_sessions": {
+        "completed": 2,
+        "goal": 2,
+        "minutes": 90
+      },
+      "zone1_3_time": "3:28",
+      "zone4_5_time": "0:20",
+      "confidence": "HIGH"
+    },
+    "recovery": {
+      "sleep_performance": {
+        "value": 84,
+        "unit": "%",
+        "status": "Good",
+        "weekly_change": 3
+      },
+      "hrv": {
+        "value": 92,
+        "unit": "ms",
+        "status": "Optimal",
+        "weekly_change": 8
+      },
+      "resting_hr": {
+        "value": 49,
+        "unit": "bpm",
+        "status": "Optimal",
+        "weekly_change": -1
+      },
+      "confidence": "HIGH"
+    },
+    "lifestyle_adherence": {
+      "steps": {
+        "actual": 11469,
+        "goal": 10000,
+        "weekly_change": 620
+      },
+      "drinks": {
+        "actual": 4,
+        "goal": "<3",
+        "variance": 2
+      },
+      "work_stress": {
+        "value": 4,
+        "scale": 5
+      },
+      "confidence": "MEDIUM"
+    }
+  },
+  "atlas_weekly_brief": {
+    "overall_status": "ON TRACK",
+    "confidence": "HIGH"
+  },
+  "week_context": {
+    "week_type": "Home Week",
+    "goal": "Fat Loss",
+    "travel": "Denver (3 days)",
+    "work_stress": "4 / 5",
+    "alcohol": "4 drinks",
+    "special_events": "None",
+    "sleep_location": "Home",
+    "illness_injury": "None",
+    "confidence": "MEDIUM"
+  },
+  "coach_analysis_focus": {
+    "analysis": "Body fat continues to trend downward while lean mass remains stable. Training execution was excellent. Recovery remained good despite alcohol exceeding your weekly target.",
+    "focus_for_next_week": "Limit alcohol to three drinks or fewer during your upcoming travel week to support recovery and continue driving body fat down.",
+    "confidence": "HIGH"
+  },
+  "overall_confidence": {
+    "level": "HIGH",
+    "summary": "Complete data from home week. High confidence in all metrics and trends.",
+    "confidence": "HIGH"
+  },
+  "pillar_status": {
+    "body": {
+      "status": "On Track",
+      "summary": [
+        "Body fat trending down",
+        "Lean mass stable"
+      ],
+      "confidence": "MEDIUM"
+    },
+    "training": {
+      "status": "Excellent",
+      "summary": [
+        "All sessions completed",
+        "Great consistency"
+      ],
+      "confidence": "HIGH"
+    },
+    "recovery": {
+      "status": "Good",
+      "summary": [
+        "Sleep 84% \u2022 HRV 92 ms",
+        "RHR 49 bpm"
+      ],
+      "confidence": "HIGH"
+    },
+    "lifestyle": {
+      "status": "Needs Attention",
+      "summary": [
+        "Drinks above goal",
+        "Calories on target"
+      ],
+      "confidence": "MEDIUM"
+    },
+    "health": {
+      "status": "Stable",
+      "summary": [
+        "BP 118/74 \u2022 Labs up to date",
+        "No concerns"
+      ],
+      "confidence": "HIGH"
+    }
+  },
+  "upcoming_events": [
+    {
+      "title": "DEXA Scan",
+      "days_remaining": 32,
+      "date": "2026-09-12",
+      "description": "Track body composition progress",
+      "confidence": "HIGH"
+    },
+    {
+      "title": "Annual Labs",
+      "days_remaining": 63,
+      "date": "2026-10-10",
+      "description": "Annual blood work and biomarkers",
+      "confidence": "HIGH"
+    },
+    {
+      "title": "Next Check-in",
+      "days_remaining": 7,
+      "date": "2026-08-15",
+      "description": "Weekly check-in and review",
+      "confidence": "HIGH"
+    },
+    {
+      "title": "Dentist Appointment",
+      "days_remaining": 13,
+      "date": "2026-08-21",
+      "description": "Plan ahead. Stay consistent.",
+      "confidence": "HIGH"
+    },
+    {
+      "title": "Annual Physical",
+      "days_remaining": 98,
+      "date": "2026-11-21",
+      "description": "Preventive health check-up",
+      "confidence": "HIGH"
+    }
+  ],
+  "footer": {
+    "motivation": "Small, consistent wins lead to big long-term results. Stay consistent.",
+    "confidence_note": "All confidence levels reflect the completeness and quality of available data."
+  }
+}
