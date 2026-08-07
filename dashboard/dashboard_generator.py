@@ -174,6 +174,35 @@ def render_pillar_status(data):
         print(f"    Confidence  : {pillar['confidence']}")
         print()
 
+def render_upcoming_events(data):
+    events = data["upcoming_events"]
+
+    print("UPCOMING EVENTS")
+    print("-" * 70)
+    print()
+
+    for event in events:
+        print(event["title"])
+        print(f"    Date         : {event['date']}")
+        print(f"    Days Away    : {event['days_remaining']}")
+        print(f"    Description  : {event['description']}")
+        print(f"    Confidence   : {event['confidence']}")
+        print()
+
+def render_footer(data):
+    footer = data["footer"]
+
+    print("=" * 70)
+    print("ATLAS INSIGHT")
+    print("=" * 70)
+    print()
+
+    print(footer["motivation"])
+    print()
+    print(f"Confidence Note: {footer['confidence_note']}")
+    print()     
+
+
 def display_dashboard():
     """Display the latest Atlas dashboard."""
 
@@ -182,6 +211,8 @@ def display_dashboard():
     render_weekly_execution_scorecard(observation)
     render_weekly_brief(observation)
     render_pillar_status(observation)
+    render_upcoming_events(observation)
+    render_footer(observation)
     confidence = calculate_confidence(observation)
 
 
