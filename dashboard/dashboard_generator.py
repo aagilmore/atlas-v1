@@ -3,6 +3,26 @@ from services.confidence_engine import calculate_confidence
 
 import json
 
+def print_header(title):
+    print("=" * 70)
+    print(title)
+    print("=" * 70)
+    print()
+
+
+def print_section(title):
+    print(title)
+    print("-" * 70)
+
+
+def print_metric(label, value):
+    print(f"    {label:<20}: {value}")
+
+
+def print_bullets(items):
+    for item in items:
+        print(f"  • {item}")
+
 
 def load_observation():
     file_path = get_latest_observation()
@@ -14,13 +34,8 @@ def load_observation():
 def render_strategic_scorecard(data):
     strategic = data["strategic_scorecard"]
 
-    print("=" * 70)
-    print("ATLAS WEEKLY SNAPSHOT")
-    print("=" * 70)
-    print()
-
-    print("STRATEGIC SCORECARD")
-    print("-" * 70)
+    print_header("ATLAS WEEKLY SNAPSHOT")
+    print_section("STRATEGIC SCORECARD")
 
     performance = strategic["performance_score"]
 
