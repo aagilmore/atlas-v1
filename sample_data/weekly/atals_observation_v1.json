@@ -1,0 +1,57 @@
+{
+  "week": {
+    "number": 32,
+    "year": 2026,
+    "date_range": "August 1 - August 7, 2026"
+  },
+
+  "strategic_scorecard": {
+    "performance_score": {
+      "value": 87,
+      "goal": 90,
+      "trend": "+2",
+      "status": "On Track"
+    },
+
+    "goal_progress": {
+      "value": 61,
+      "goal": 100,
+      "trend": "+3",
+      "status": "On Track"
+    },
+
+    "body_fat": {
+      "value": 23.9,
+      "unit": "%",
+      "goal": 18.0,
+      "trend": "-0.4",
+      "status": "Improving"
+    },
+
+    "vo2_max": {
+      "value": 47,
+      "unit": "",
+      "goal": 50,
+      "trend": "+1",
+      "status": "Improving"
+    },
+
+    "lean_mass": {
+      "value": 172.6,
+      "unit": "lb",
+      "goal": 180.0,
+      "trend": "+0.3",
+      "status": "On Track"
+    }
+  },
+
+  "weekly_execution_scorecard": {},
+
+  "atlas_weekly_brief": {},
+
+  "coach_analysis_focus": {},
+
+  "pillar_status": {},
+
+  "upcoming_events": {}
+}
