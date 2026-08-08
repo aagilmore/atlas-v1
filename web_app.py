@@ -17,9 +17,23 @@ def dashboard():
     performance = strategic["performance_score"]
     execution = observation["weekly_execution_scorecard"]
     training = execution["training"]
-    weekly_brief = observation["atlas_weekly_brief"]
+    weekly_brief = obserweekly_brief = observation["atlas_weekly_brief"]
+
+    upcoming_events_html = ""
+
+    for event in observation["upcoming_events"]:
+        upcoming_events_html += f"""
+        <div>
+            <h3>{event["title"]}</h3>
+            <p><strong>Date:</strong> {event["date"]}</p>
+            <p><strong>Days Remaining:</strong> {event["days_remaining"]}</p>
+            <p>{event["description"]}</p>
+            <p><strong>Confidence:</strong> {event["confidence"]}</p>
+        </div>
+        """
 
     return f"""
+
     <!DOCTYPE html>
     <html>
     <head>
@@ -150,7 +164,13 @@ def dashboard():
     <h2>Upcoming Events</h2>
 
     <div id="events">
-        Events go here
+    <hr>
+
+    <h2>Upcoming Events</h2>
+
+    <div id="upcoming-events">
+    
+</div>
     </div>
 
     </body>
