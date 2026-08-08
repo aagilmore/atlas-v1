@@ -166,12 +166,10 @@ def dashboard():
     <div id="events">
     <hr>
 
-    <h2>Upcoming Events</h2>
-
     <div id="upcoming-events">
-    
-</div>
+        {upcoming_events_html}
     </div>
+</div>
 
     </body>
     </html> 
