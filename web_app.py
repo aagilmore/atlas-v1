@@ -37,36 +37,144 @@ def dashboard():
     <!DOCTYPE html>
     <html>
     <head>
+        
         <title>Atlas Dashboard</title>
-    </head>
+
+        <style>
+            * {{
+                box-sizing: border-box;
+            }}
+
+            body {{
+                margin: 0;
+                padding: 24px;
+                background: #06111b;
+                color: #e8eef2;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 14px;
+            }}
+
+            h1 {{
+                margin: 0;
+                font-size: 30px;
+                letter-spacing: 2px;
+            }}
+
+            h2 {{
+                margin: 8px 0 14px;
+                font-size: 18px;
+                color: #dce5eb;
+            }}
+
+            h3 {{
+                margin: 0 0 10px;
+                font-size: 15px;
+                color: #f0f4f7;
+            }}
+
+            p {{
+                margin: 6px 0;
+            }}
+
+            hr {{
+                border: 0;
+                border-top: 1px solid #263846;
+                margin: 18px 0;
+            }}
+
+            #strategic-scorecard,
+            #events {{
+                border: 1px solid #263846;
+                border-radius: 10px;
+                padding: 16px;
+                background: #081723;
+            }}
+
+            #strategic-scorecard > div {{
+                 border: 1px solid #263846;
+                border-radius: 8px;
+                padding: 14px;
+                margin-bottom: 12px;
+                background: #0b1d2a;
+            }}
+
+            #strategic-scorecard > div:last-child {{
+                margin-bottom: 0;
+            }}
+
+            strong {{
+                color: #cbd8df;
+            }}
+            
+            .scorecard-grid {{
+                display: grid;
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 12px;
+            }}
+
+            .scorecard-card {{
+                border: 1px solid #263846;
+                border-radius: 8px;
+                padding: 14px;
+                background: #0b1d2a;
+            }}
+
+            .scorecard-card h3 {{ 
+                margin-top: 0;
+            }}
+
+        </style>
+</head>
+
 
     <body>
 
     <h1>ATLAS</h1>
     <h2>Weekly Dashboard</h2>
 
-    <hr>
-
     <h2>Strategic Scorecard</h2>
 
     <div id="strategic-scorecard">
-    
-    <h3>Performance</h3>
 
-    <p><strong>Score:</strong> {performance["score"]} / 100</p>
-    <p><strong>Rating:</strong> {performance["rating"]}</p>
-    <p><strong>Confidence:</strong> {performance["confidence"]}</p>
+        <div class="scorecard-grid">
 
-<hr>
+            <div class="scorecard-card">
+                <h3>Performance</h3>
+                <p><strong>Score:</strong> {performance["score"]} / 100</p>
+                <p><strong>Rating:</strong> {performance["rating"]}</p>
+                <p><strong>Confidence:</strong> {performance["confidence"]}</p>
+            </div>
 
-    <h3>Goal Progress</h3>
+            <div class="scorecard-card">
+                <h3>Goal Progress</h3>
+                <p><strong>Progress:</strong> {strategic["goal_progress"]["percent_complete"]}%</p>
+                <p><strong>Status:</strong> {strategic["goal_progress"]["status"]}</p>
+                <p><strong>Goal:</strong> {strategic["goal_progress"]["primary_goal"]}</p>
+                <p><strong>Projected 20% BF:</strong> {strategic["goal_progress"]["projected_20_percent_bf"]}</p>
+                <p><strong>Estimated Completion:</strong> {strategic["goal_progress"]["estimated_goal_date"]}</p>
+            </div>
 
-    <p><strong>Progress:</strong> {strategic["goal_progress"]["percent_complete"]}%</p>
-    <p><strong>Status:</strong> {strategic["goal_progress"]["status"]}</p>
-    <p><strong>Goal:</strong> {strategic["goal_progress"]["primary_goal"]}</p>
-    <p><strong>Projected 20% BF:</strong> {strategic["goal_progress"]["projected_20_percent_bf"]}</p>
-    <p><strong>Estimated Completion:</strong> {strategic["goal_progress"]["estimated_goal_date"]}</p>
-        
+            <div class="scorecard-card">
+                <h3>Body Fat</h3>
+                <p><strong>Current:</strong> {strategic["body_fat"]["value"]}%</p>
+                <p><strong>Change:</strong> {strategic["body_fat"]["monthly_change"]}%</p>
+                <p><strong>Goal:</strong> {strategic["body_fat"]["goal"]}%</p>
+            </div>
+
+            <div class="scorecard-card">
+                <h3>VO₂ Max</h3>
+                <p><strong>Current:</strong> {strategic["vo2_max"]["value"]}</p>
+                <p><strong>Change:</strong> +{strategic["vo2_max"]["monthly_change"]}</p>
+                <p><strong>Goal:</strong> {strategic["vo2_max"]["goal"]}</p>
+            </div>
+
+            <div class="scorecard-card">
+                <h3>Lean Mass</h3>
+                <p><strong>Current:</strong> {strategic["lean_mass"]["value"]} lbs</p>
+                <p><strong>Change:</strong> +{strategic["lean_mass"]["monthly_change"]} lbs</p>
+                <p><strong>Goal:</strong> {strategic["lean_mass"]["goal"]}</p>
+            </div>
+
     </div>
 
     <hr>
