@@ -15,6 +15,7 @@ def dashboard():
     observation = load_observation()
     strategic = observation["strategic_scorecard"]
     performance = strategic["performance_score"]
+    performance_score = performance["score"]
     execution = observation["weekly_execution_scorecard"]
     training = execution["training"]
     weekly_brief = obserweekly_brief = observation["atlas_weekly_brief"]
@@ -127,34 +128,24 @@ def dashboard():
                 font-size: 28px;
                 font-weight: 700;
             }} 
-            "performance": {
-    "score": 87,
-    "rating": "Great",
-    "confidence": "HIGH",
-    "components": {
-        "body_composition": {
-            "weight": 30,
-            "score": 78
-        },
-        "training": {
-            "weight": 20,
-            "score": 92
-        },
-        "recovery": {
-            "weight": 20,
-            "score": 84
-        },
-        "nutrition": {
-            "weight": 15,
-            "score": 90
-        },
-        "lifestyle": {
-            "weight": 10,
-            "score": 74
-        },
-        "health": {
-            "weight": 5,
-
+            .performance-circle {{
+                width: 82px;
+                height: 82px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: conic-gradient(#cbd8df calc(var(--score) * 1%), #263846 0);
+            }}
+            .performance-circle-inner {{
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #0b1d2a;
+            }}
         </style>
 </head>
 
@@ -172,7 +163,11 @@ def dashboard():
 
             <div class="scorecard-card">
                 <h3>Performance</h3>
-                <p class="performance-score"><strong>Score:</strong> {performance["score"]} / 100</p>
+                <div class="performance-circle" style="--score: {performance_score};">
+                    <div class="performance-circle-inner">
+                        <span class="performance-score">{performance_score}</span>
+                    </div>
+                </div>
                 <p><strong>Rating:</strong> {performance["rating"]}</p>
                 <p><strong>Confidence:</strong> {performance["confidence"]}</p>
 
