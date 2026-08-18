@@ -122,6 +122,38 @@ def dashboard():
             .scorecard-card h3 {{ 
                 margin-top: 0;
             }}
+        
+            .performance-score {{
+                font-size: 28px;
+                font-weight: 700;
+            }} 
+            "performance": {
+    "score": 87,
+    "rating": "Great",
+    "confidence": "HIGH",
+    "components": {
+        "body_composition": {
+            "weight": 30,
+            "score": 78
+        },
+        "training": {
+            "weight": 20,
+            "score": 92
+        },
+        "recovery": {
+            "weight": 20,
+            "score": 84
+        },
+        "nutrition": {
+            "weight": 15,
+            "score": 90
+        },
+        "lifestyle": {
+            "weight": 10,
+            "score": 74
+        },
+        "health": {
+            "weight": 5,
 
         </style>
 </head>
@@ -140,9 +172,18 @@ def dashboard():
 
             <div class="scorecard-card">
                 <h3>Performance</h3>
-                <p><strong>Score:</strong> {performance["score"]} / 100</p>
+                <p class="performance-score"><strong>Score:</strong> {performance["score"]} / 100</p>
                 <p><strong>Rating:</strong> {performance["rating"]}</p>
                 <p><strong>Confidence:</strong> {performance["confidence"]}</p>
+
+                <div class="performance-breakdown">
+                    <p><strong>Body Composition:</strong> {performance["breakdown"]["body_composition"]["weight"]}% &nbsp; {performance["breakdown"]["body_composition"]["score"]}</p>
+                    <p><strong>Training:</strong> {performance["breakdown"]["training"]["weight"]}% &nbsp; {performance["breakdown"]["training"]["score"]}</p>
+                    <p><strong>Recovery:</strong> {performance["breakdown"]["recovery"]["weight"]}% &nbsp; {performance["breakdown"]["recovery"]["score"]}</p>
+                    <p><strong>Nutrition:</strong> {performance["breakdown"]["nutrition"]["weight"]}% &nbsp; {performance["breakdown"]["nutrition"]["score"]}</p>
+                    <p><strong>Lifestyle:</strong> {performance["breakdown"]["lifestyle"]["weight"]}% &nbsp; {performance["breakdown"]["lifestyle"]["score"]}</p>
+                    <p><strong>Health:</strong> {performance["breakdown"]["health"]["weight"]}% &nbsp; {performance["breakdown"]["health"]["score"]}</p>
+                </div>
             </div>
 
             <div class="scorecard-card">
