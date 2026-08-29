@@ -79,6 +79,9 @@ def upload_observation():
     CURRENT_OBSERVATION_FILE = temp_file.name
     return redirect(url_for("dashboard"))
 
+@app.route("/choose")
+def choose():
+    return render_template_string(SELECT_FILE_TEMPLATE)
 
 @app.route("/")
 def dashboard():
@@ -754,7 +757,7 @@ DASHBOARD_TEMPLATE = """
             <div class="week-dates">
                 {{ observation.get("week", {}).get("date_range", "Check-in period unavailable") }}
             </div>
-            <a class="change-week" href="/">Choose another week</a>
+            <a class="change-week" href="/choose">Choose another week</a>
         </div>
     </header>
 
@@ -1212,4 +1215,4 @@ DASHBOARD_TEMPLATE = """
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=50010, debug=True)
