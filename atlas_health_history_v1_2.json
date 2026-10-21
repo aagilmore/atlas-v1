@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "measurements": [
+    {
+      "metric": "visceral_fat",
+      "date": "2026-07-08",
+      "value": 1.09,
+      "unit": "lb"
+    },
+    {
+      "metric": "visceral_fat",
+      "date": "2026-09-30",
+      "value": 1.27,
+      "unit": "lb"
+    },
+    {
+      "metric": "apob",
+      "date": "2023-08",
+      "value": 102,
+      "unit": "mg/dL"
+    },
+    {
+      "metric": "apob",
+      "date": "2024-01",
+      "value": 109,
+      "unit": "mg/dL"
+    },
+    {
+      "metric": "ldl_c",
+      "date": "2025-07",
+      "value": 141,
+      "unit": "mg/dL"
+    },
+    {
+      "metric": "ldl_c",
+      "date": "2026-07",
+      "value": 133,
+      "unit": "mg/dL"
+    },
+    {
+      "metric": "blood_pressure",
+      "date": "2026-09-05",
+      "systolic": 118,
+      "diastolic": 68,
+      "unit": "mmHg"
+    },
+    {
+      "metric": "blood_pressure",
+      "date": "2026-10-03",
+      "systolic": 109,
+      "diastolic": 59,
+      "unit": "mmHg"
+    }
+  ],
+  "targets": {
+    "visceral_fat": "<1.0 lb (personal goal)",
+    "apob": "<80 mg/dL",
+    "ldl_c": "<100 mg/dL",
+    "blood_pressure": "<120/80 mmHg (not lower-is-always-better)"
+  }
+}

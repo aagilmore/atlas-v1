@@ -2,6 +2,8 @@ from flask import Flask, render_template_string, request, redirect, url_for
 import json
 from pathlib import Path
 import tempfile
+import os
+import re
 
 
 # ATLAS Dashboard V10
@@ -14,6 +16,134 @@ app = Flask(__name__)
 # Files picker. No weekly observation filename is hard-coded.
 
 CURRENT_OBSERVATION_FILE = None
+
+
+
+# Separate longitudinal Health history; Wilson remains responsible for scoring.
+HEALTH_HISTORY_FILE = Path(__file__).resolve().with_name("atlas_health_history_v1_2.json")
+HEALTH_LABELS = {"blood_pressure": "Blood Pressure", "apob": "ApoB",
+                 "ldl_c": "LDL-C", "visceral_fat": "DEXA Visceral Fat"}
+HEALTH_ORDER = ("blood_pressure", "apob", "ldl_c", "visceral_fat")
+
+
+def health_history_view():
+    """Return compact, date-aware history without changing score calculations."""
+    try:
+        data = json.loads(HEALTH_HISTORY_FILE.read_text(encoding="utf-8"))
+    except (FileNotFoundError, OSError, ValueError):
+        return []
+    measurements = data.get("measurements", [])
+    targets = data.get("targets", {})
+    result = []
+    for metric in HEALTH_ORDER:
+        # Dates are ISO year, year-month, or full date, so lexical sort is chronological.
+        records = sorted(
+            (r for r in measurements if isinstance(r, dict)
+             and r.get("metric") == metric and isinstance(r.get("date"), str)),
+            key=lambda r: r["date"]
+        )
+        if not records:
+            continue
+        # Collapse same-date observations (most recently stored correction wins).
+        distinct = {r["date"]: r for r in records}
+        records = [distinct[k] for k in sorted(distinct)]
+        latest = records[-1]
+        prior = records[-2] if len(records) > 1 else None
+        if metric == "blood_pressure":
+            if not all(k in latest for k in ("systolic", "diastolic")):
+                continue
+            value = f'{latest["systolic"]}/{latest["diastolic"]} mmHg'
+            change = (f'{latest["systolic"]-prior["systolic"]:+g}/'
+                      f'{latest["diastolic"]-prior["diastolic"]:+g} mmHg'
+                      if prior and all(k in prior for k in ("systolic", "diastolic"))
+                      else "—")
+        else:
+            if not isinstance(latest.get("value"), (int, float)):
+                continue
+            value = f'{latest["value"]:g} {latest.get("unit", "")}'
+            change = (f'{latest["value"]-prior["value"]:+g} {latest.get("unit", "")}'
+                      if prior and isinstance(prior.get("value"), (int, float))
+                      else "—")
+        result.append({"label": HEALTH_LABELS[metric], "value": value,
+                       "date": latest["date"], "change": change,
+                       "target": targets.get(metric, "—")})
+    return result
+
+
+def ingest_health_measurements(observation):
+    """Persist verified dated measurements, without inventing dates or replacing conflicts.
+
+    Existing history is authoritative for same-metric/same-date conflicts.
+    Upload remains accepted; ambiguous conflicts are skipped for manual review.
+    """
+    raw = observation.get("health_measurements")
+    if not isinstance(raw, dict):
+        return 0
+    aliases = {"blood_pressure": "blood_pressure", "apo_b": "apob",
+               "apob": "apob", "ldl_c": "ldl_c", "visceral_fat": "visceral_fat"}
+    try:
+        history = json.loads(HEALTH_HISTORY_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        # Never overwrite a missing/corrupt historical archive during an upload.
+        return 0
+    if not isinstance(history, dict) or not isinstance(history.get("measurements"), list):
+        return 0
+    existing = history["measurements"]
+    indexed = {(r.get("metric"), r.get("date")): r for r in existing
+               if isinstance(r, dict)}
+    added = 0
+    for key, metric in aliases.items():
+        entry = raw.get(key)
+        if not isinstance(entry, dict):
+            continue
+        date = entry.get("date")
+        if not isinstance(date, str) or not re.fullmatch(r"\d{4}(?:-\d{2}(?:-\d{2})?)?", date):
+            continue
+        try:
+            from datetime import date as calendar_date
+            if len(date) == 4:
+                calendar_date(int(date), 1, 1)
+            elif len(date) == 7:
+                calendar_date(int(date[:4]), int(date[5:]), 1)
+            else:
+                calendar_date.fromisoformat(date)
+        except ValueError:
+            continue
+        if metric == "blood_pressure":
+            s, d = entry.get("systolic"), entry.get("diastolic")
+            if (not all(isinstance(v, (int, float)) and not isinstance(v, bool)
+                        for v in (s, d)) or not (40 <= s <= 300 and 20 <= d <= 200)):
+                continue
+            candidate = {"metric": metric, "date": date, "systolic": s,
+                         "diastolic": d, "unit": "mmHg"}
+        else:
+            val = entry.get("value")
+            expected_unit = "lb" if metric == "visceral_fat" else "mg/dL"
+            if (not isinstance(val, (int, float)) or isinstance(val, bool)
+                    or not 0 < val < 1000 or entry.get("unit") != expected_unit):
+                continue
+            candidate = {"metric": metric, "date": date, "value": val,
+                         "unit": expected_unit}
+        if (metric, date) in indexed:
+            continue
+        existing.append(candidate)
+        indexed[(metric, date)] = candidate
+        added += 1
+    if added:
+        # Atomic replacement; retain history if interrupted.
+        fd, tmp = tempfile.mkstemp(prefix=".atlas_health_", suffix=".json",
+                                    dir=str(HEALTH_HISTORY_FILE.parent))
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(history, f, indent=2, ensure_ascii=False)
+                f.write("\n")
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmp, HEALTH_HISTORY_FILE)
+        finally:
+            if os.path.exists(tmp):
+                os.unlink(tmp)
+    return added
 
 
 def load_observation():
@@ -77,6 +207,7 @@ def upload_observation():
     temp_file.close()
 
     CURRENT_OBSERVATION_FILE = temp_file.name
+    ingest_health_measurements(observation)
     return redirect(url_for("dashboard"))
 
 @app.route("/choose")
@@ -102,6 +233,7 @@ def dashboard():
         performance=performance,
         execution=execution,
         weekly_brief=weekly_brief,
+        health_history=health_history_view(),
     )
 
 
@@ -556,6 +688,15 @@ DASHBOARD_TEMPLATE = """
             line-height: 1.35;
         }
 
+        .pillar-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .metabolic-health-card { grid-column: 1 / -1; }
+        .metabolic-health-card h3 { color: #54d6c8; }
+        .health-metrics { margin-top: 9px; padding-top: 10px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+        .health-metric { min-width: 0; padding: 8px; border: 1px solid rgba(203, 216, 223, .18); border-radius: 6px; background: rgba(4, 11, 18, .45); }
+        .health-metric { font-size: 10px; line-height: 1.35; color: var(--text); }
+        .health-metric-name { color: #54d6c8; font-weight: 700; }
+        .health-metric-detail { color: var(--muted); font-size: 9px; }
+
         .events-list {
             display: grid;
             grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -698,6 +839,8 @@ DASHBOARD_TEMPLATE = """
         }
 
         @media (max-width: 1150px) {
+            .pillar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .health-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .scorecard-grid,
             .execution-grid,
             .pillar-grid {
@@ -714,6 +857,8 @@ DASHBOARD_TEMPLATE = """
         }
 
         @media (max-width: 750px) {
+            .pillar-grid { grid-template-columns: 1fr; }
+            .health-metrics { grid-template-columns: 1fr; }
             body {
                 padding: 16px;
             }
@@ -738,6 +883,9 @@ DASHBOARD_TEMPLATE = """
                 min-height: auto;
             }
         }
+        @media (min-width: 1151px) { .pillar-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+        @media (min-width: 751px) and (max-width: 1150px) { .pillar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 750px) { .pillar-grid, .health-metrics { grid-template-columns: 1fr; } }
     </style>
 </head>
 
@@ -796,7 +944,7 @@ DASHBOARD_TEMPLATE = """
                 <div class="breakdown">
                     {% for name, item in performance["breakdown"].items() %}
                     <div class="breakdown-row">
-                        <span>{{ name.replace("_", " ").title() }}</span>
+                        <span>{{ "Metabolic Health" if name|lower in ("health", "metabolic_health") else name.replace("_", " ").title() }}</span>
                         <span class="breakdown-weight">{{ item["weight"] }}%</span>
                         <span class="breakdown-score">{{ "N/A" if item["score"] is none else item["score"] }}</span>
                     </div>
@@ -942,6 +1090,15 @@ DASHBOARD_TEMPLATE = """
                             {{ execution["nutrition"]["carbohydrates"]["actual"] }}g
                         </div>
                     </div>
+                    {% for key, label in [("saturated_fat", "Saturated Fat"), ("fiber", "Fiber")] %}
+                    {% set nutrient = execution["nutrition"].get(key) %}
+                    {% if nutrient is not none %}
+                    <div class="nutrition-item">
+                        <div class="nutrition-label">{{ label }}</div>
+                        <div class="nutrition-value">{{ nutrient.get("actual", "—") if nutrient is mapping else nutrient }}g</div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                     <div class="nutrition-item">
                         <div class="nutrition-label">Deficit</div>
                         <div class="nutrition-value">
@@ -1157,20 +1314,32 @@ DASHBOARD_TEMPLATE = """
         </div>
 
         <div class="pillar-grid">
-            {% for name, pillar in observation["pillar_status"].items() %}
+            {% for name, pillar in observation["pillar_status"].items() if name|lower != "health" %}
             <div class="pillar-card">
                 <h3>{{ name.replace("_", " ").title() }}</h3>
-                <p class="pillar-status">
-                    <span class="status">{{ pillar["status"] }}</span>
-                </p>
-                <p class="pillar-summary">
-                    {{ pillar["summary"] | join(" • ") }}
-                </p>
-                <p class="confidence">
-                    Confidence: {{ pillar["confidence"] }}
-                </p>
+                <p class="pillar-status"><span class="status">{{ pillar["status"] }}</span></p>
+                <p class="pillar-summary">{{ pillar["summary"] | join(" • ") }}</p>
+                <p class="confidence">Confidence: {{ pillar["confidence"] }}</p>
             </div>
             {% endfor %}
+            {% set health = observation["pillar_status"].get("health") %}
+            {% if health %}
+            <div class="pillar-card metabolic-health-card">
+                <h3>Metabolic Health</h3>
+                <p class="pillar-status"><span class="status">{{ health["status"] }}</span></p>
+                <div class="health-metrics">
+                    {% for metric in health_history %}
+                    <div class="health-metric">
+                        <span class="health-metric-name">{{ metric.label }}</span>
+                        <div>{{ metric.value }}</div>
+                        <div class="health-metric-detail">{{ metric.date }} · Change {{ metric.change }}</div>
+                        <div class="health-metric-detail">Target: {{ metric.target }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <p class="confidence">Confidence: {{ health["confidence"] }}</p>
+            </div>
+            {% endif %}
         </div>
     </section>
 
