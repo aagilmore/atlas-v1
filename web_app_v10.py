@@ -4,6 +4,10 @@ from pathlib import Path
 import tempfile
 import os
 import re
+import io
+import zipfile
+from flask import send_file
+from atlas_weekly_archive_v1_3 import store as store_weekly, read as read_weekly
 
 
 # ATLAS Dashboard V10
@@ -206,9 +210,60 @@ def upload_observation():
     temp_file.write(raw)
     temp_file.close()
 
+    try:
+        store_weekly([observation])
+    except (ValueError, OSError) as error:
+        os.unlink(temp_file.name)
+        return f"Weekly archive error: {error}", 400
     CURRENT_OBSERVATION_FILE = temp_file.name
     ingest_health_measurements(observation)
     return redirect(url_for("dashboard"))
+
+
+@app.route("/history/import", methods=["POST"])
+def import_history():
+    """Import a set of original JSONs or a ZIP without changing the displayed week."""
+    files = request.files.getlist("history_files")
+    if not files:
+        return "No history files selected", 400
+    records = []
+    try:
+        for uploaded in files:
+            raw = uploaded.read()
+            if len(raw) > 25 * 1024 * 1024:
+                raise ValueError("File exceeds 25 MB")
+            if uploaded.filename.lower().endswith(".json"):
+                records.append(json.loads(raw.decode("utf-8")))
+            elif uploaded.filename.lower().endswith(".zip"):
+                with zipfile.ZipFile(io.BytesIO(raw)) as z:
+                    entries = [entry for entry in z.infolist() if entry.filename.lower().endswith(".json") and not entry.is_dir()]
+                    if len(entries) > 150:
+                        raise ValueError("ZIP contains too many JSON files")
+                    for entry in entries:
+                        if entry.file_size > 5 * 1024 * 1024:
+                            raise ValueError("JSON entry exceeds 5 MB")
+                        records.append(json.loads(z.read(entry).decode("utf-8")))
+            else:
+                raise ValueError("Only JSON or ZIP supported")
+        if not records:
+            raise ValueError("No JSON records found")
+        count = store_weekly(records)
+    except (ValueError, OSError, UnicodeDecodeError, zipfile.BadZipFile) as error:
+        return f"History import rejected, no changes made: {error}", 400
+    return f"Imported {count} distinct weekly records. <a href='/'>Return to dashboard</a>"
+
+
+@app.route("/history/download")
+def download_history():
+    try:
+        weekly = read_weekly()["weekly_checkins"]
+        metabolic = json.loads(HEALTH_HISTORY_FILE.read_text(encoding="utf-8"))
+    except (ValueError, OSError) as error:
+        return f"Unable to export history: {error}", 500
+    data = {"export_version": "1.3", "weekly_checkins": weekly, "metabolic_history": metabolic}
+    payload = io.BytesIO((json.dumps(data, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
+    return send_file(payload, mimetype="application/json", as_attachment=True, download_name="atlas_history_export.json")
+
 
 @app.route("/choose")
 def choose():
@@ -289,6 +344,11 @@ button {
                accept=".json,application/json" required>
         <button type="submit">Open Weekly Check-In</button>
     </form>
+    <form id="import" action="/history/import" method="post" enctype="multipart/form-data">
+        <input type="file" name="history_files" accept=".json,.zip" multiple required>
+        <button type="submit">Import Historical Check-Ins</button>
+    </form>
+    <p><a href="/history/download" style="color:#b75cff">Download History</a></p>
     <p class="note">Atlas starts with file selection; no weekly observation filename is hard-coded.</p>
 </div>
 </body>
@@ -906,6 +966,8 @@ DASHBOARD_TEMPLATE = """
                 {{ observation.get("week", {}).get("date_range", "Check-in period unavailable") }}
             </div>
             <a class="change-week" href="/choose">Choose another week</a>
+            <a class="change-week" href="/history/download" style="margin-left:12px">↓ Download History</a>
+            <a class="change-week" href="/choose#import" style="margin-left:12px">Import History</a>
         </div>
     </header>
 
